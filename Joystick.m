@@ -81,11 +81,16 @@
             {
                 double vX = touchPoint.x - self.anchorPointInPoints.x;
                 double vY = touchPoint.y - self.anchorPointInPoints.y;
-                double magV = sqrt(vX*vX + vY*vY);
-                double aX = self.anchorPointInPoints.x + vX / magV * thumbNode.size.width;
-                double aY = self.anchorPointInPoints.y + vY / magV * thumbNode.size.width;
                 
-                thumbNode.position = CGPointMake(aX, aY);
+                if (!(vX > 256 || vY > 256)) //Touchpoint should be within limits.
+                {
+                    double magV = sqrt(vX*vX + vY*vY);
+                    double aX = self.anchorPointInPoints.x + vX / magV * thumbNode.size.width;
+                    double aY = self.anchorPointInPoints.y + vY / magV * thumbNode.size.width;
+                    
+                    thumbNode.position = CGPointMake(aX, aY);
+                }
+                
             }
         }
         velocity = CGPointMake(((thumbNode.position.x - self.anchorPointInPoints.x)), ((thumbNode.position.y - self.anchorPointInPoints.y)));
